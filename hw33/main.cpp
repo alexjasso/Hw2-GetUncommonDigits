@@ -14,10 +14,12 @@ using namespace std;
 //int* extractUncommonDigitArrayAlejandroR(int*, int);
 int** setUp2D(int);
 void extractDigitInfo(int* dataAry, int size, int**);
+int* extractUncommonDigit(int**, int);
 
 int main() {
     int** iPtrPtr = nullptr;
     int* dataAry = nullptr;
+    int* uncommonAry;
     int size;
     int i, j;
     
@@ -33,18 +35,66 @@ int main() {
     iPtrPtr = setUp2D(size);
     
     extractDigitInfo(dataAry, size, iPtrPtr);
-    for (i = 0; i < size; i++) {
-        for (j = 0; j < 10; j++) {
-        cout <<"\nElement of index " << j << " : "
-        << *(*(iPtrPtr + i) + j) << endl;
-        }
+    
+    uncommonAry = extractUncommonDigit(iPtrPtr, size);
+    
+    for (i = 0; i <= *(uncommonAry + 0); i++){
+        cout << "\n Index: " << i << " is " << *(uncommonAry + i);
     }
+    //for (i = 0; i < size; i++) {
+    //    for (j = 0; j < 10; j++) {
+    //    cout <<"\nElement of index " << j << " : "
+    //    << *(*(iPtrPtr + i) + j) << endl;
+    //    }
+    //}
+    
     return 0;
 }
 
 //	void menu3AlejandroRamirez() {}
 
-//int* extractUncommonDigitAlejandroR(int*) {};
+int* extractUncommonDigit(int** iPtrPtr, int size) {
+    int* allDigitOcc = new int[10]();
+    int* uncommAry;
+    int unDigitCnt = 0;
+    int uncommonEvenCnt = 0;
+    int uncommonOddCnt = 0;
+    int i, j;
+    
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < 10; j++) {
+            *(allDigitOcc + j) += *(*(iPtrPtr + i) + j);
+        }
+    }
+    
+    for (i = 0; i < 10; i++) {
+        if (*(allDigitOcc + i) == 1)
+            unDigitCnt++;
+    }
+    
+    uncommAry = new int[unDigitCnt * 2 + 1]();
+    
+    *(uncommAry + 0) = unDigitCnt;
+    
+    
+    for (i = 0, j = 1; i < 10; i += 2) {
+        if (*(allDigitOcc + i) == 1){
+            *(uncommAry + j) = i;
+            j++;
+            uncommonEvenCnt++;
+        }
+    }
+    
+    for (i = 1, j = uncommonEvenCnt + 1; i < 10; i += 2) {
+        if (*(allDigitOcc + i) == 1){
+            *(uncommAry + j) = i;
+            j++;
+            uncommonOddCnt++;
+        }
+    }
+    
+    return uncommAry;
+}
 
 void extractDigitInfo(int* dataAry, int size, int** digitInfoAry) {
     int tmp;
