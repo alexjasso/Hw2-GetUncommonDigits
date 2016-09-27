@@ -38,7 +38,7 @@ int main() {
     
     uncommonAry = extractUncommonDigit(iPtrPtr, size);
     
-    for (i = 0; i <= *(uncommonAry + 0) * 2 + 1; i++){
+    for (i = 0; i < (*(uncommonAry + 0) * 2 + 1); i++){
         cout << "\n Index: " << i << " is " << *(uncommonAry + i);
     }
     //for (i = 0; i < size; i++) {
@@ -63,8 +63,10 @@ int* extractUncommonDigit(int** iPtrPtr, int size) {
     
     for (i = 0; i < size; i++) {
         for (j = 0, k = 0; j < 20; j += 2, k++) {
-            *(allDigitOcc + j) += *(*(iPtrPtr + i) + k);
-            *(allDigitOcc + j + 1) = i;
+            if (*(*(iPtrPtr + i) + k) > 0) {
+                *(allDigitOcc + j) += *(*(iPtrPtr + i) + k);
+                *(allDigitOcc + j + 1) = i;
+            }
         }
     }
     
@@ -88,7 +90,7 @@ int* extractUncommonDigit(int** iPtrPtr, int size) {
         }
     }
     
-    for (i = 2, j = uncommonEvenCnt + 1; i < 20; i += 4) {
+    for (i = 2, j = (uncommonEvenCnt * 2 + 1); i < 20; i += 4) {
         if (*(allDigitOcc + i) == 1){
             *(uncommAry + j) = i/2;
             j++;
