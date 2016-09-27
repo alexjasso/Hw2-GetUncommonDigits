@@ -7,9 +7,80 @@
 //
 
 #include <iostream>
+using namespace std;
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+//void menu3AlejandroRamirez(void):
+//int* extractUncommonDigitArrayAlejandroR(int*, int);
+int** setUp2D(void);
+void extractDigitInfo(int* dataAry, int size, int**);
+
+int main() {
+    int** iPtrPtr = nullptr;
+    int* dataAry = nullptr;
+    int size;
+    int i, j;
+    
+    cout << "\nHow many elements? ";
+    cin >> size;
+    
+    dataAry = new int[size];
+    for (i = 0; i < size; i++) {
+        cout << "\nEnter value for element of index " << i << " : ";
+        cin >> *(dataAry + i);
+    }
+    
+    iPtrPtr = setUp2D();
+    
+    extractDigitInfo(dataAry, size, iPtrPtr);
+    
+    for (j = 0; j < 10; j++) {
+        cout <<"\nElement of index " << j << " : "
+        << *(*(iPtrPtr + 0) + j) << endl;
+    }
+    
     return 0;
+}
+
+//	void menu3AlejandroRamirez() {}
+
+//int* extractUncommonDigitAlejandroR(int*) {};
+
+void extractDigitInfo(int* dataAry, int size, int** digitInfoAry) {
+    int tmp;
+    int i, j;
+    
+    for (i = 0; i < size; i++) {
+        tmp = (*(dataAry + i) < 0) ? -(*(dataAry + i)) : *(dataAry + i);
+        
+        for (j = 0; j < 10; j++) {
+            //initialize values at *(*(iPtrPtr + i) + j) to 0
+        }
+        
+        do {
+            // TODO's
+            //*(*(digitInfoAry + i) + tmp % 10) = 1;
+            *(*(digitInfoAry + 0) + tmp % 10) = 1;
+
+            tmp /= 10;
+        } while (tmp != 0);
+    }
+}
+
+int** setUp2D() {
+    int** iPtrPtr = nullptr;
+    //int size;
+    //int i;
+             
+    //cout << "\nHow many int's? ";
+    //cin >> size;
+             
+    iPtrPtr = new int*[1];
+    *(iPtrPtr + 0) = new int[10]();
+    
+    //for (i = 0; i <size; i++) {
+    //    *(iPtrPtr + i) = new int[10]();
+    //}
+             
+    return iPtrPtr;
 }
