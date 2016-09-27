@@ -12,7 +12,7 @@ using namespace std;
 
 //void menu3AlejandroRamirez(void):
 //int* extractUncommonDigitArrayAlejandroR(int*, int);
-int** setUp2D(void);
+int** setUp2D(int);
 void extractDigitInfo(int* dataAry, int size, int**);
 
 int main() {
@@ -30,15 +30,15 @@ int main() {
         cin >> *(dataAry + i);
     }
     
-    iPtrPtr = setUp2D();
+    iPtrPtr = setUp2D(size);
     
     extractDigitInfo(dataAry, size, iPtrPtr);
-    
-    for (j = 0; j < 10; j++) {
+    for (i = 0; i < size; i++) {
+        for (j = 0; j < 10; j++) {
         cout <<"\nElement of index " << j << " : "
-        << *(*(iPtrPtr + 0) + j) << endl;
+        << *(*(iPtrPtr + i) + j) << endl;
+        }
     }
-    
     return 0;
 }
 
@@ -59,28 +59,30 @@ void extractDigitInfo(int* dataAry, int size, int** digitInfoAry) {
         
         do {
             // TODO's
-            //*(*(digitInfoAry + i) + tmp % 10) = 1;
-            *(*(digitInfoAry + 0) + tmp % 10) = 1;
+            *(*(digitInfoAry + i) + tmp % 10) = 1;
+            //*(*(digitInfoAry + 0) + tmp % 10) = 1;
 
             tmp /= 10;
         } while (tmp != 0);
     }
 }
 
-int** setUp2D() {
+int** setUp2D(int size) {
     int** iPtrPtr = nullptr;
     //int size;
-    //int i;
+    int i;
              
-    //cout << "\nHow many int's? ";
-    //cin >> size;
-             
-    iPtrPtr = new int*[1];
-    *(iPtrPtr + 0) = new int[10]();
+    //1.cout << "\nHow many int's? ";
+    //1.cin >> size;
     
-    //for (i = 0; i <size; i++) {
-    //    *(iPtrPtr + i) = new int[10]();
-    //}
+    iPtrPtr = new int*[size];   //iPtrPtr: ptr to #size ptrs to ints
+    
+    //2.iPtrPtr = new int*[1];
+    //2.*(iPtrPtr + 0) = new int[10]();
+    
+    for (i = 0; i <size; i++) {
+        *(iPtrPtr + i) = new int[10]();
+    }
              
     return iPtrPtr;
 }
